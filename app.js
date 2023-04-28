@@ -37,6 +37,7 @@ function showMovies(movies) {
       //  .addEventListener("click", movieClicked);
   }
 }
+
 // const html =
 /*html*/
 //   `<table>
