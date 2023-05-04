@@ -10,7 +10,6 @@ async function initApp() {
   console.log("JS kører");
   movies = await fetchJsonFileAboutMovies();
   console.log(movies);
-  // movies.forEach(showMovies);
   showMovies(movies);
 }
 
@@ -23,35 +22,34 @@ async function fetchJsonFileAboutMovies() {
 
 function showMovies(movies) {
   for (const movie of movies) {
-    const myHTML =
-      /*html*/
-      `<div class="movie">
-        <img src = ${movie.image}>
+    const myHTML = `
+      <div class="movie">
+        <img src="${movie.image}">
         <h2>${movie.title}</h2>
         <p>Directed by: ${movie.director}</p>
       </div>
-          `;
-    document
-      .querySelector("#grid-container")
-      .insertAdjacentHTML("beforeend", myHTML);
-    //  document
-    //  .querySelector("#grid-container grid:last-child")
-    //  .addEventListener("click", movieClicked);
+    `;
+    document.querySelector("#grid-container").insertAdjacentHTML("beforeend", myHTML);
+    document.querySelector("#grid-container .movie:last-child").addEventListener("click", () => movieClicked(movie));
   }
 }
 
-// const html =
-/*html*/
-//   `<table>
-// <tr>
-//   <td>${pokemon.name}</td>
-//   <td><img src="${pokemon.image}"></td>
-//   <td>${pokemon.dexindex}</td>
-//   <td>${pokemon.type}</td>
-// </tr>
-//  `;
+function movieClicked(movie) {
+  showMovieModal(movie);
+}
 
-// document.querySelector("#pokemons").insertAdjacentHTML("beforeend", html);
-// document
-//   .querySelector("#pokemons table:last-child")
-//   .addEventListener("click", pokemonClicked);
+function showMovieModal(movie) {
+  console.log(movie);
+
+  document.querySelector("#dialog-image").src = movie.image;
+  document.querySelector("#dialog-description").textContent = `Description: ${movie.description}`;
+  document.querySelector("#dialog-director").textContent = `Director: ${movie.director}`;
+  document.querySelector("#dialog-year-published").textContent = `Year published: ${movie.yearpublished}`;
+  document.querySelector("#dialog-length-minutes").textContent = `Length in minutes: ${movie.lengthminutes}`;
+  
+  const dialog = document.querySelector("#dialog-modal");
+  dialog.showModal();
+
+  const closeButton = document.querySelector("#dialog-close-button");
+  closeButton.addEventListener("click", () => dialog.close)
+}
