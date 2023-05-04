@@ -2,21 +2,23 @@
 
 window.addEventListener("load", initApp);
 
-// const movies = [];
+const endpoint = "https://dummy-movieobjects-default-rtdb.firebaseio.com/";
+
+let movies = [];
 
 async function initApp() {
   console.log("JS kører");
-  const movies = await fetchJsonFileAboutMovies();
+  movies = await fetchJsonFileAboutMovies();
   console.log(movies);
-  //   movies.forEach(showMovies);
+  // movies.forEach(showMovies);
   showMovies(movies);
 }
 
 async function fetchJsonFileAboutMovies() {
-  const response = await fetch("movies.json");
+  const response = await fetch(`${endpoint}/movies.json`);
   const data = await response.json();
   console.log(data);
-  return data;
+  return Object.values(data);
 }
 
 function showMovies(movies) {
@@ -33,8 +35,8 @@ function showMovies(movies) {
       .querySelector("#grid-container")
       .insertAdjacentHTML("beforeend", myHTML);
     //  document
-      //  .querySelector("#grid-container grid:last-child")
-      //  .addEventListener("click", movieClicked);
+    //  .querySelector("#grid-container grid:last-child")
+    //  .addEventListener("click", movieClicked);
   }
 }
 
